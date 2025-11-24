@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SpaceVideoBackground() {
     // Path to the uploaded video (use this while testing here)
-    const videoSrc = "/vedios/vedio.mp4";
+    const videoSrc = "https://fg6ae0196omuyqcy.public.blob.vercel-storage.com/vedio.mp4";
 
     // Recommended production path (uncomment to use after you copy the file to public/)
     // const videoSrc = "/videos/space-bg.mp4";
