@@ -4,7 +4,6 @@ import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 
 export default defineConfig({
-    base: '/bharath/',   // 👈 ADD THIS LINE
 
     plugins: [react()],
 
