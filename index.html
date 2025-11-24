@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bharath Gowda C G | Portfolio</title>
+        <meta name="description" content="Portfolio of Bharath Gowda C G — Full-stack developer specializing in scalable, high-performance applications." />
+        <meta name="theme-color" content="#111827" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <meta property="og:title" content="Bharath Gowda C G | Portfolio" />
+        <meta property="og:description" content="Full-stack developer specializing in scalable, high-performance applications." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="/" />
+        <meta property="og:image" content="/favicon.svg" />
+    </head>
+    <body class="bg-gray-900 text-white min-h-screen">
+        <div id="root"></div>
+        <script type="module" src="/src/main.jsx"></script>
+
+    <!-- JavaScript for Mobile Menu, Smooth Scrolling and Secure Server-Side Email -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const form = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+
+            // Mobile Menu Toggle
+            if (menuButton) {
+                menuButton.addEventListener('click', () => {
+                    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true' || false;
+                    menuButton.setAttribute('aria-expanded', !isExpanded);
+                    if (mobileMenu) mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Close mobile menu when a link is clicked
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu) mobileMenu.classList.add('hidden');
+                    if (menuButton) menuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // Smooth Scrolling for Desktop Links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (this.getAttribute('href').length > 1) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 64,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Secure server-side form handler (calls /api/send endpoint)
+            if (form && formMessage) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    formMessage.classList.remove('hidden', 'text-green-400', 'text-red-400');
+                    formMessage.textContent = 'Sending...';
+                    formMessage.classList.add('text-indigo-400');
+
+                    const data = {
+                        name: form.elements.name.value,
+                        email: form.elements.email.value,
+                        message: form.elements.message.value
+                    };
+
+                    try {
+                        const response = await fetch('/api/send', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        });
+
+                        if (response.ok) {
+                            formMessage.textContent = 'Thank you! Your message has been sent successfully.';
+                            formMessage.classList.remove('text-indigo-400');
+                            formMessage.classList.add('text-green-400');
+                            form.reset();
+                            setTimeout(() => {
+                                formMessage.classList.add('hidden');
+                            }, 5000);
+                        } else {
+                            throw new Error('Server error');
+                        }
+                    } catch (error) {
+                        console.error('Send error:', error);
+                        formMessage.textContent = 'Sorry — something went wrong. Please try again later.';
+                        formMessage.classList.remove('text-indigo-400');
+                        formMessage.classList.add('text-red-400');
+                    }
+                });
+            }
+        });
+    </script>
+    </body>
+</html>

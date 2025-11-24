@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+    background: linear-gradient(120deg, #1e3a8a, #7c3aed, #0ea5e9, #ef4444);
+    background-size: 400% 400%;
+    animation: gradientFlow 18s ease infinite;
+    position: relative;
+    overflow-x: hidden;
+}
+
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+    pointer-events: none;
+    background-repeat: repeat;
+    opacity: 0.3;
+    mix-blend-mode: screen;
+    z-index: 0;
+}
+
+body::before {
+    background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 60%);
+    background-size: 180px 180px;
+    animation: floatDrops 18s linear infinite;
+}
+
+body::after {
+    background-image: radial-gradient(circle at center, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0) 60%);
+    background-size: 240px 240px;
+    animation: floatDropsAlt 26s linear infinite;
+}
+
+@keyframes floatDrops {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        transform: translate3d(5%, 6%, 0);
+    }
+    100% {
+        transform: translate3d(0, 12%, 0);
+    }
+}
+
+@keyframes floatDropsAlt {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        transform: translate3d(-6%, 3%, 0);
+    }
+    100% {
+        transform: translate3d(-2%, 10%, 0);
+    }
+}
+
+#root {
+    position: relative;
+    z-index: 1;
+}
+
+/* Custom scrollbar for aesthetics */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(30, 58, 138, 0.5);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(239, 68, 68, 0.8);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(239, 68, 68, 1);
+}
+/* 🌈 PREMIUM GRADIENT SECTION HEADINGS */
+.section-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, #7dd3fc, #c084fc, #818cf8, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+/* Black divider line above sections */
+.section-block {
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+.section-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: rgb(247, 246, 246);
+  opacity: 0.4;
+}
+
+
+/* Space video background - full screen behind content */
+.space-video-wrapper {
+  position: fixed;
+  inset: 0;                 /* top:0; right:0; bottom:0; left:0 */
+  z-index: -60;             /* sit behind everything (nav is z-50 in your App.jsx) */
+  pointer-events: none;     /* allow clicks through */
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+/* The video element: cover entire viewport, keep aspect ratio */
+.space-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: 120%;             /* slightly taller to avoid letterboxing on some screens */
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  filter: saturate(1.02) contrast(1.02) brightness(0.9);
+  opacity: 0.95;
+}
+
+/* small devices: scale down to keep performance */
+@media (max-width: 768px) {
+  .space-video { height: 140%; }
+}
+
+/* overlay to improve contrast (tweak color/opacity as needed) */
+.space-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(3,7,18,0.25), rgba(1,2,12,0.45));
+  pointer-events: none;
+  mix-blend-mode: normal;
+}
+
+
